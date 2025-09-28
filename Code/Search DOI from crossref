@@ -1,0 +1,268 @@
+#!/usr/bin/env python3
+"""
+crossref_fetch_dois.py
+
+Read keywords/phrases from KEYWORD_FILE (one per line),
+query Crossref works endpoint for each keyword and save unique DOIs
+to OUT_DOI (one DOI per line). Also produce a small CSV summary
+with counts per keyword.
+
+Dependencies:
+    pip install requests tqdm tenacity
+"""
+
+import time
+import json
+import csv
+from pathlib import Path
+from datetime import datetime
+import requests
+from tenacity import retry, wait_exponential, stop_after_attempt
+try:
+    from tqdm import tqdm
+except Exception:
+    def tqdm(x, **kw): return x
+
+# ========== Configuration ==========
+KEYWORD_FILE = Path(r"K:\Abstract\Prompt.txt")   # change to your path
+OUT_DOI = KEYWORD_FILE.with_name("crossref_dois.txt")
+OUT_SUMMARY = KEYWORD_FILE.with_name("crossref_doi_summary.csv")
+
+# contact email (Crossref recommends identifying yourself)
+EMAIL = "your_email@example.com"
+
+# How many items per request (Crossref allows up to 1000; be polite)
+ROWS_PER_REQUEST = 500   # set to 1000 if you want maximum per request
+
+# For each keyword, maximum number of DOIs to collect (None => fetch as many as available)
+MAX_DOIS_PER_KEYWORD = 1000    # adjust or set to None
+
+# Rate limiting: seconds between requests (global)
+MIN_INTERVAL = 0.25   # 0.25s ~= 4 req/s (tune if you see 429)
+
+# Retry/backoff settings (tenacity used for network reliability)
+MAX_RETRIES = 5
+TIMEOUT = 30
+
+CROSSREF_WORKS_ENDPOINT = "https://api.crossref.org/works"
+# ===================================
+
+
+class RateLimiter:
+    def __init__(self, min_interval: float):
+        self.min_interval = float(min_interval)
+        self._last = 0.0
+
+    def wait(self):
+        now = time.time()
+        elapsed = now - self._last
+        if elapsed < self.min_interval:
+            time.sleep(self.min_interval - elapsed)
+        self._last = time.time()
+
+
+@retry(wait=wait_exponential(multiplier=1, min=1, max=60), stop=stop_after_attempt(MAX_RETRIES))
+def do_request(session: requests.Session, url: str, params: dict, headers: dict):
+    resp = session.get(url, params=params, headers=headers, timeout=TIMEOUT)
+    # raise_for_status will trigger tenacity retry for 5xx/connection issues.
+    if resp.status_code >= 500:
+        resp.raise_for_status()
+    # For 429 or 4xx we don't auto-raise here; return response so caller can handle
+    return resp
+
+
+def fetch_dois_for_keyword(keyword: str, session: requests.Session, rate_limiter: RateLimiter):
+    """
+    Returns a set of DOIs (strings, lowercased) for given keyword.
+    Uses Crossref cursor pagination when available.
+    """
+    collected = set()
+    headers = {"User-Agent": f"crossref-doi-fetcher/1.0 (mailto:{EMAIL})"}
+
+    # Try cursor-based pagination first
+    cursor = "*"   # Crossref requires initial cursor="*"
+    use_cursor = True
+    while True:
+        # build params: use generic "query" for broader matches
+        params = {
+            "query": keyword,
+            "rows": ROWS_PER_REQUEST,
+            "cursor": cursor,
+            "mailto": EMAIL
+        }
+        rate_limiter.wait()
+        try:
+            resp = do_request(session, CROSSREF_WORKS_ENDPOINT, params, headers)
+        except Exception as e:
+            # network/backoff exhausted for this request
+            print(f"[WARN] network error for keyword='{keyword}': {e}")
+            break
+
+        if resp.status_code == 200:
+            try:
+                data = resp.json()
+            except ValueError:
+                print(f"[WARN] invalid JSON for keyword='{keyword}'")
+                break
+
+            msg = data.get("message", {})
+            items = msg.get("items", [])
+            if not items:
+                break
+
+            for it in items:
+                doi = it.get("DOI")
+                if doi:
+                    doi_clean = doi.strip().lower()
+                    if doi_clean:
+                        collected.add(doi_clean)
+                        # check per-keyword max
+                        if MAX_DOIS_PER_KEYWORD is not None and len(collected) >= MAX_DOIS_PER_KEYWORD:
+                            return collected
+
+            # cursor pagination: Crossref returns "next-cursor" for deep pagination
+            next_cursor = msg.get("next-cursor")
+            if not next_cursor:
+                # no cursor support or last page
+                break
+            # if next_cursor same as current (unlikely), break to avoid infinite loop
+            if next_cursor == cursor:
+                break
+            cursor = next_cursor
+            # continue loop to fetch next page
+        elif resp.status_code in (429, 502, 503, 504):
+            # server busy or rate limit; respect Retry-After if provided
+            ra = resp.headers.get("Retry-After")
+            if ra:
+                try:
+                    sleep_for = int(ra)
+                except Exception:
+                    sleep_for = 5
+            else:
+                sleep_for = 5
+            print(f"[INFO] got {resp.status_code} for '{keyword}', sleeping {sleep_for}s")
+            time.sleep(sleep_for)
+            continue
+        else:
+            # for client errors (4xx), try a fallback with offset-based pagination using "query.title"
+            # but only if we haven't already tried fallback
+            if use_cursor:
+                print(f"[INFO] switching to offset pagination fallback for keyword='{keyword}' (status {resp.status_code})")
+                use_cursor = False
+                break
+            else:
+                break
+
+    # If cursor didn't work or we want fallback, use offset-based pagination
+    offset = 0
+    while True:
+        params = {
+            "query": keyword,
+            "rows": ROWS_PER_REQUEST,
+            "offset": offset,
+            "mailto": EMAIL
+        }
+        rate_limiter.wait()
+        try:
+            resp = do_request(session, CROSSREF_WORKS_ENDPOINT, params, headers)
+        except Exception as e:
+            print(f"[WARN] network error (offset) for '{keyword}': {e}")
+            break
+
+        if resp.status_code == 200:
+            try:
+                data = resp.json()
+            except ValueError:
+                break
+            msg = data.get("message", {})
+            items = msg.get("items", [])
+            if not items:
+                break
+            for it in items:
+                doi = it.get("DOI")
+                if doi:
+                    doi_clean = doi.strip().lower()
+                    if doi_clean:
+                        collected.add(doi_clean)
+                        if MAX_DOIS_PER_KEYWORD is not None and len(collected) >= MAX_DOIS_PER_KEYWORD:
+                            return collected
+            offset += len(items)
+            total_results = msg.get("total-results")
+            if total_results is not None and offset >= total_results:
+                break
+            if len(items) < ROWS_PER_REQUEST:
+                break
+        elif resp.status_code in (429, 502, 503, 504):
+            ra = resp.headers.get("Retry-After")
+            sleep_for = int(ra) if ra and ra.isdigit() else 5
+            print(f"[INFO] offset pagination got {resp.status_code}, sleeping {sleep_for}s")
+            time.sleep(sleep_for)
+            continue
+        else:
+            break
+
+    return collected
+
+
+def read_keywords(path: Path):
+    if not path.exists():
+        raise FileNotFoundError(f"Keyword file not found: {path}")
+    lines = [l.strip() for l in path.read_text(encoding="utf8").splitlines()]
+    # remove empties and dedupe preserving order
+    seen = set(); out = []
+    for l in lines:
+        if not l: continue
+        if l in seen: continue
+        seen.add(l); out.append(l)
+    return out
+
+
+def main():
+    keywords = read_keywords(KEYWORD_FILE)
+    if not keywords:
+        print("No keywords found; exit.")
+        return
+
+    rate_limiter = RateLimiter(MIN_INTERVAL)
+    session = requests.Session()
+
+    seen_global = set()   # unique DOIs across all keywords
+    total_new = 0
+
+    # open files
+    with OUT_DOI.open("a", encoding="utf8") as doi_f, OUT_SUMMARY.open("w", encoding="utf8", newline="") as sum_f:
+        csvw = csv.writer(sum_f)
+        csvw.writerow(["query", "dois_found", "note", "timestamp_utc"])
+
+        for kw in tqdm(keywords, desc="Queries"):
+            try:
+                dois = fetch_dois_for_keyword(kw, session, rate_limiter)
+            except Exception as e:
+                print(f"[WARN] failed to fetch for '{kw}': {e}")
+                csvw.writerow([kw, 0, f"error:{e}", datetime.utcnow().isoformat()+"Z"])
+                sum_f.flush()
+                continue
+
+            new_for_kw = 0
+            for d in sorted(dois):
+                if d not in seen_global:
+                    doi_f.write(d + "\n")
+                    seen_global.add(d)
+                    new_for_kw += 1
+                    total_new += 1
+            doi_f.flush()
+            note = ""
+            if not dois:
+                note = "no_results"
+            elif new_for_kw == 0:
+                note = "no_new_unique"
+            csvw.writerow([kw, len(dois), note, datetime.utcnow().isoformat()+"Z"])
+            sum_f.flush()
+
+    print("Done. total unique DOIs written:", total_new)
+    print("DOI file:", OUT_DOI)
+    print("Summary CSV:", OUT_SUMMARY)
+
+
+if __name__ == "__main__":
+    main()
