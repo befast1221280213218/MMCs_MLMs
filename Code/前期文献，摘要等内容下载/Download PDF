@@ -1,0 +1,149 @@
+#这个用于快速下载web of science中的一系列的PDF
+import os
+import re
+import time
+import random
+import requests
+from urllib.parse import quote_plus
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from bs4 import BeautifulSoup
+
+# Sci-Hub 镜像
+SCI_HUB_MIRRORS = [
+    'https://sci-hub.ren',
+    'https://sci-hub.ru',
+    'https://sci-hub.st',
+    'https://sci-hub.ee',
+    'https://sci-hub.se'
+]
+
+# 下载目录
+DOWNLOAD_DIR = r"K:\PDF\SCI-HUB\Web of science"
+os.makedirs(DOWNLOAD_DIR, exist_ok=True)
+
+# 失败 DOI 文件
+FAIL_FILE = r"K:\PDF\SCI-HUB\Web of science\A_failDOI_google.txt"
+
+# 最大线程数
+MAX_WORKERS = 10
+
+# 全局变量，记录当前最优镜像
+best_mirror = None
+
+# 下载计数器
+download_count = 0
+total_count = 0
+
+def safe_filename(doi):
+    """替换 Windows 非法字符"""
+    return re.sub(r'[<>:"/\\|?*]', '_', doi) + '.pdf'
+
+def fetch_pdf_link(doi):
+    """从 Sci-Hub 获取 PDF 链接（兼容 iframe / embed / object）"""
+    global best_mirror
+    doi_encoded = quote_plus(doi)
+    headers = {'User-Agent': 'Mozilla/5.0'}
+
+    # 镜像优先顺序
+    mirrors = []
+    if best_mirror and best_mirror in SCI_HUB_MIRRORS:
+        mirrors.append(best_mirror)
+    mirrors.extend([m for m in SCI_HUB_MIRRORS if m != best_mirror])
+
+    for base in mirrors:
+        try:
+            url = f"{base.rstrip('/')}/{doi_encoded}"
+            resp = requests.get(url, headers=headers, timeout=20)
+            resp.raise_for_status()
+
+            soup = BeautifulSoup(resp.text, 'html.parser')
+
+            pdf_url = None
+            # 1. iframe
+            iframe = soup.find('iframe')
+            if iframe and iframe.get('src'):
+                pdf_url = iframe.get('src')
+
+            # 2. embed
+            if not pdf_url:
+                embed = soup.find('embed')
+                if embed and embed.get('src'):
+                    pdf_url = embed.get('src')
+
+            # 3. object
+            if not pdf_url:
+                obj = soup.find('object')
+                if obj and obj.get('data'):
+                    pdf_url = obj.get('data')
+
+            if not pdf_url:
+                continue  # 当前镜像失败
+
+            # 处理相对路径
+            if pdf_url.startswith('//'):
+                pdf_url = 'https:' + pdf_url
+            elif pdf_url.startswith('/'):
+                host = url.split('/')[2]
+                pdf_url = f'https://{host}{pdf_url}'
+
+            best_mirror = base
+            return pdf_url
+        except Exception:
+            continue
+    return None
+
+def download_pdf(doi):
+    """下载单个 DOI 的 PDF"""
+    global download_count, total_count
+
+    try:
+        pdf_url = fetch_pdf_link(doi)
+        download_count += 1  # 更新进度
+
+        if not pdf_url:
+            with open(FAIL_FILE, 'a', encoding='utf-8') as f:
+                f.write(doi + '\n')
+            print(f"[{download_count}/{total_count}] {doi} 🚫 所有镜像失败")
+            return False
+
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        resp = requests.get(pdf_url, headers=headers, stream=True, timeout=30)
+        resp.raise_for_status()
+
+        filename = safe_filename(doi)
+        path = os.path.join(DOWNLOAD_DIR, filename)
+        with open(path, 'wb') as f:
+            for chunk in resp.iter_content(8192):
+                f.write(chunk)
+
+        print(f"[{download_count}/{total_count}] {doi} ✅ 下载完成: {path}")
+        return True
+    except Exception as e:
+        download_count += 1
+        print(f"[{download_count}/{total_count}] {doi} ❌ 下载失败: {e}")
+        with open(FAIL_FILE, 'a', encoding='utf-8') as f:
+            f.write(doi + '\n')
+        return False
+
+def main(dois):
+    global total_count
+    total_count = len(dois)
+    start_time = time.time()
+
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = {executor.submit(download_pdf, doi): doi for doi in dois}
+        for future in as_completed(futures):
+            doi = futures[future]
+            try:
+                future.result()
+            except Exception as e:
+                print(f"[ERR] {doi} 线程异常: {e}")
+
+    elapsed = time.time() - start_time
+    print(f"✅ 全部完成，用时 {elapsed:.2f} 秒")
+
+if __name__ == '__main__':
+    doi_file = r'K:\Abstract\DOI\crossref_dois.txt' 
+    with open(doi_file, 'r', encoding='utf-8') as f:
+        dois = [line.strip() for line in f if line.strip()]
+    main(dois)
