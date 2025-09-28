@@ -1,0 +1,67 @@
+import os
+import re
+from collections import OrderedDict
+
+# 配置路径
+INPUT_FOLDER = r"K:\RIS\Xmol"  # 包含.RIS文件的文件夹
+OUTPUT_FILE = r"K:\RIS\doi_abstract_pairs.txt"  # 输出文件路径
+
+def process_ris_file(file_path):
+    """处理单个RIS文件，返回DOI和AB的列表"""
+    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+        content = f.read()
+    
+    # 使用正则表达式提取所有DOI和AB字段
+    dois = re.findall(r'DO  - (.+)', content)
+    abstracts = re.findall(r'AB  - (.+)', content)
+    
+    # 确保DOI和AB数量匹配（有些文件可能有多个DOI或AB）
+    pairs = []
+    min_len = min(len(dois), len(abstracts))
+    for i in range(min_len):
+        pairs.append((dois[i].strip(), abstracts[i].strip()))
+    
+    return pairs
+
+def process_folder(folder_path):
+    """处理文件夹中的所有RIS文件，返回去重后的DOI-AB对"""
+    doi_dict = OrderedDict()  # 使用有序字典自动去重并保留第一个出现的摘要
+    
+    # 遍历所有子文件夹
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            if file.lower().endswith('.ris'):
+                file_path = os.path.join(root, file)
+                try:
+                    pairs = process_ris_file(file_path)
+                    for doi, abstract in pairs:
+                        if doi not in doi_dict:  # 只保留第一次出现的DOI
+                            doi_dict[doi] = abstract
+                    print(f"已处理: {file_path} (找到 {len(pairs)} 对DOI-AB)")
+                except Exception as e:
+                    print(f"处理文件 {file_path} 时出错: {str(e)}")
+    
+    return list(doi_dict.items())
+
+def save_results(pairs, output_file):
+    """将结果保存为两列的TXT文件"""
+    with open(output_file, 'w', encoding='utf-8') as f:
+        # 写入列标题
+        f.write("DOI\tAbstract\n")
+        
+        for doi, abstract in pairs:
+            # 替换可能干扰的字符
+            clean_doi = doi.replace('\t', ' ').replace('\n', ' ').strip()
+            clean_abstract = abstract.replace('\t', ' ').replace('\n', ' ').strip()
+            f.write(f"{clean_doi}\t{clean_abstract}\n")
+
+def main():
+    print("开始处理RIS文件...")
+    doi_abstract_pairs = process_folder(INPUT_FOLDER)
+    
+    print(f"\n共找到 {len(doi_abstract_pairs)} 对唯一DOI-AB")
+    save_results(doi_abstract_pairs, OUTPUT_FILE)
+    print(f"结果已保存到 {OUTPUT_FILE}")
+
+if __name__ == "__main__":
+    main()
