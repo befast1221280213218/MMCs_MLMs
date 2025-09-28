@@ -1,0 +1,532 @@
+Aluminum (Al)
+Magnesium (Mg)
+Titanium (Ti)
+Copper (Cu) 
+Iron / Steel (Fe) 
+Nickel (Ni)
+Cobalt (Co) 
+Zirconium (Zr) 
+Molybdenum (Mo),
+Tungsten (W)
+Silicon carbide (SiC)
+Alumina (Al2O3)
+Titanium carbide (TiC)
+TiB2
+B4C
+ZrO2
+Si3N4
+BN
+MgO
+HfC
+WC
+VC
+NbC
+TaC
+Cr2O3
+Y2O3
+CeO2
+La2O3
+SiO2
+AlN
+TiN
+ZrN
+Si
+Graphite
+CNT
+Graphene
+Carbon fibers
+Boron fibers,
+Al2O3 whiskers
+SiC whiskers
+ZTA
+MgAl2O4
+Al4C3,
+Al3Ti
+TiC
+Ti5Si3
+Al2O3
+MgO
+SiO2
+Mg2Si
+AlN
+BN
+ZrO2
+ZrC
+NiAl
+Ni3Al
+FeAl
+Fe3Al
+CuAl2
+Cr7C3
+AlB2
+TiSi2
+Silicon carbide (SiC) , Aluminum (Al) matrix composites
+Alumina (Al2O3) , Aluminum (Al) matrix composites
+Titanium carbide (TiC) , Aluminum (Al) matrix composites
+Titanium diboride (TiB2) , Aluminum (Al) matrix composites
+Boron carbide (B4C) , Aluminum (Al) matrix composites
+Zirconia (ZrO2) , Aluminum (Al) matrix composites
+Silicon nitride (Si3N4) , Aluminum (Al) matrix composites
+Boron nitride (BN) , Aluminum (Al) matrix composites
+Magnesia (MgO) , Aluminum (Al) matrix composites
+Hafnium carbide (HfC) , Aluminum (Al) matrix composites
+Tungsten carbide (WC) , Aluminum (Al) matrix composites
+Vanadium carbide (VC) , Aluminum (Al) matrix composites
+Niobium carbide (NbC) , Aluminum (Al) matrix composites
+Tantalum carbide (TaC) , Aluminum (Al) matrix composites
+Chromia (Cr2O3) , Aluminum (Al) matrix composites
+Yttria (Y2O3) , Aluminum (Al) matrix composites
+Cerium oxide (CeO2) , Aluminum (Al) matrix composites
+Lanthanum oxide (La2O3) , Aluminum (Al) matrix composites
+Silica (SiO2) , Aluminum (Al) matrix composites
+Aluminum nitride (AlN) , Aluminum (Al) matrix composites
+Titanium nitride (TiN) , Aluminum (Al) matrix composites
+Zirconium nitride (ZrN) , Aluminum (Al) matrix composites
+Silicon (Si) - particles/fibers , Aluminum (Al) matrix composites
+Graphite (C) / Carbon particles , Aluminum (Al) matrix composites
+Carbon nanotubes (CNT) , Aluminum (Al) matrix composites
+Graphene / Graphene nanoplatelets , Aluminum (Al) matrix composites
+Carbon fibers (CF) , Aluminum (Al) matrix composites
+Boron fibers (BF) , Aluminum (Al) matrix composites
+Al2O3 whiskers , Aluminum (Al) matrix composites
+SiC whiskers , Aluminum (Al) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Aluminum (Al) matrix composites
+Zirconia toughened alumina (ZTA) , Aluminum (Al) matrix composites
+Strontium aluminate (SrAl2O4) , Aluminum (Al) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Aluminum (Al) matrix composites
+Calcia (CaO) , Aluminum (Al) matrix composites
+Calcium silicate (CaSiO3) , Aluminum (Al) matrix composites
+Mullite (3Al2O3路2SiO2) , Aluminum (Al) matrix composites
+Aluminum titanate (Al2TiO5) , Aluminum (Al) matrix composites
+BN nanotubes , Aluminum (Al) matrix composites
+Boron nitride fibers , Aluminum (Al) matrix composites
+Metallic glass particles (Mg/Cu based) , Aluminum (Al) matrix composites
+Intermetallic particles (Ni3Al) , Aluminum (Al) matrix composites
+Fiber glass (E-glass) , Aluminum (Al) matrix composites
+Basalt fibers , Aluminum (Al) matrix composites
+Quartz (伪-SiO2) particles , Aluminum (Al) matrix composites
+ZrB2 (Zirconium diboride) , Aluminum (Al) matrix composites
+AlB2 (Aluminum boride) , Aluminum (Al) matrix composites
+Silicon carbide (SiC) , Magnesium (Mg) matrix composites
+Alumina (Al2O3) , Magnesium (Mg) matrix composites
+Titanium carbide (TiC) , Magnesium (Mg) matrix composites
+Titanium diboride (TiB2) , Magnesium (Mg) matrix composites
+Boron carbide (B4C) , Magnesium (Mg) matrix composites
+Zirconia (ZrO2) , Magnesium (Mg) matrix composites
+Silicon nitride (Si3N4) , Magnesium (Mg) matrix composites
+Boron nitride (BN) , Magnesium (Mg) matrix composites
+Magnesia (MgO) , Magnesium (Mg) matrix composites
+Hafnium carbide (HfC) , Magnesium (Mg) matrix composites
+Tungsten carbide (WC) , Magnesium (Mg) matrix composites
+Vanadium carbide (VC) , Magnesium (Mg) matrix composites
+Niobium carbide (NbC) , Magnesium (Mg) matrix composites
+Tantalum carbide (TaC) , Magnesium (Mg) matrix composites
+Chromia (Cr2O3) , Magnesium (Mg) matrix composites
+Yttria (Y2O3) , Magnesium (Mg) matrix composites
+Cerium oxide (CeO2) , Magnesium (Mg) matrix composites
+Lanthanum oxide (La2O3) , Magnesium (Mg) matrix composites
+Silica (SiO2) , Magnesium (Mg) matrix composites
+Aluminum nitride (AlN) , Magnesium (Mg) matrix composites
+Titanium nitride (TiN) , Magnesium (Mg) matrix composites
+Zirconium nitride (ZrN) , Magnesium (Mg) matrix composites
+Silicon (Si) - particles/fibers , Magnesium (Mg) matrix composites
+Graphite (C) / Carbon particles , Magnesium (Mg) matrix composites
+Carbon nanotubes (CNT) , Magnesium (Mg) matrix composites
+Graphene / Graphene nanoplatelets , Magnesium (Mg) matrix composites
+Carbon fibers (CF) , Magnesium (Mg) matrix composites
+Boron fibers (BF) , Magnesium (Mg) matrix composites
+Al2O3 whiskers , Magnesium (Mg) matrix composites
+SiC whiskers , Magnesium (Mg) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Magnesium (Mg) matrix composites
+Zirconia toughened alumina (ZTA) , Magnesium (Mg) matrix composites
+Strontium aluminate (SrAl2O4) , Magnesium (Mg) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Magnesium (Mg) matrix composites
+Calcia (CaO) , Magnesium (Mg) matrix composites
+Calcium silicate (CaSiO3) , Magnesium (Mg) matrix composites
+Mullite (3Al2O3路2SiO2) , Magnesium (Mg) matrix composites
+Aluminum titanate (Al2TiO5) , Magnesium (Mg) matrix composites
+BN nanotubes , Magnesium (Mg) matrix composites
+Boron nitride fibers , Magnesium (Mg) matrix composites
+Metallic glass particles (Mg/Cu based) , Magnesium (Mg) matrix composites
+Intermetallic particles (Ni3Al) , Magnesium (Mg) matrix composites
+Fiber glass (E-glass) , Magnesium (Mg) matrix composites
+Basalt fibers , Magnesium (Mg) matrix composites
+Quartz (伪-SiO2) particles , Magnesium (Mg) matrix composites
+ZrB2 (Zirconium diboride) , Magnesium (Mg) matrix composites
+AlB2 (Aluminum boride) , Magnesium (Mg) matrix composites
+Silicon carbide (SiC) , Titanium (Ti) matrix composites
+Alumina (Al2O3) , Titanium (Ti) matrix composites
+Titanium carbide (TiC) , Titanium (Ti) matrix composites
+Titanium diboride (TiB2) , Titanium (Ti) matrix composites
+Boron carbide (B4C) , Titanium (Ti) matrix composites
+Zirconia (ZrO2) , Titanium (Ti) matrix composites
+Silicon nitride (Si3N4) , Titanium (Ti) matrix composites
+Boron nitride (BN) , Titanium (Ti) matrix composites
+Magnesia (MgO) , Titanium (Ti) matrix composites
+Hafnium carbide (HfC) , Titanium (Ti) matrix composites
+Tungsten carbide (WC) , Titanium (Ti) matrix composites
+Vanadium carbide (VC) , Titanium (Ti) matrix composites
+Niobium carbide (NbC) , Titanium (Ti) matrix composites
+Tantalum carbide (TaC) , Titanium (Ti) matrix composites
+Chromia (Cr2O3) , Titanium (Ti) matrix composites
+Yttria (Y2O3) , Titanium (Ti) matrix composites
+Cerium oxide (CeO2) , Titanium (Ti) matrix composites
+Lanthanum oxide (La2O3) , Titanium (Ti) matrix composites
+Silica (SiO2) , Titanium (Ti) matrix composites
+Aluminum nitride (AlN) , Titanium (Ti) matrix composites
+Titanium nitride (TiN) , Titanium (Ti) matrix composites
+Zirconium nitride (ZrN) , Titanium (Ti) matrix composites
+Silicon (Si) - particles/fibers , Titanium (Ti) matrix composites
+Graphite (C) / Carbon particles , Titanium (Ti) matrix composites
+Carbon nanotubes (CNT) , Titanium (Ti) matrix composites
+Graphene / Graphene nanoplatelets , Titanium (Ti) matrix composites
+Carbon fibers (CF) , Titanium (Ti) matrix composites
+Boron fibers (BF) , Titanium (Ti) matrix composites
+Al2O3 whiskers , Titanium (Ti) matrix composites
+SiC whiskers , Titanium (Ti) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Titanium (Ti) matrix composites
+Zirconia toughened alumina (ZTA) , Titanium (Ti) matrix composites
+Strontium aluminate (SrAl2O4) , Titanium (Ti) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Titanium (Ti) matrix composites
+Calcia (CaO) , Titanium (Ti) matrix composites
+Calcium silicate (CaSiO3) , Titanium (Ti) matrix composites
+Mullite (3Al2O3路2SiO2) , Titanium (Ti) matrix composites
+Aluminum titanate (Al2TiO5) , Titanium (Ti) matrix composites
+BN nanotubes , Titanium (Ti) matrix composites
+Boron nitride fibers , Titanium (Ti) matrix composites
+Metallic glass particles (Mg/Cu based) , Titanium (Ti) matrix composites
+Intermetallic particles (Ni3Al) , Titanium (Ti) matrix composites
+Fiber glass (E-glass) , Titanium (Ti) matrix composites
+Basalt fibers , Titanium (Ti) matrix composites
+Quartz (伪-SiO2) particles , Titanium (Ti) matrix composites
+ZrB2 (Zirconium diboride) , Titanium (Ti) matrix composites
+AlB2 (Aluminum boride) , Titanium (Ti) matrix composites
+Silicon carbide (SiC) , Copper (Cu) matrix composites
+Alumina (Al2O3) , Copper (Cu) matrix composites
+Titanium carbide (TiC) , Copper (Cu) matrix composites
+Titanium diboride (TiB2) , Copper (Cu) matrix composites
+Boron carbide (B4C) , Copper (Cu) matrix composites
+Zirconia (ZrO2) , Copper (Cu) matrix composites
+Silicon nitride (Si3N4) , Copper (Cu) matrix composites
+Boron nitride (BN) , Copper (Cu) matrix composites
+Magnesia (MgO) , Copper (Cu) matrix composites
+Hafnium carbide (HfC) , Copper (Cu) matrix composites
+Tungsten carbide (WC) , Copper (Cu) matrix composites
+Vanadium carbide (VC) , Copper (Cu) matrix composites
+Niobium carbide (NbC) , Copper (Cu) matrix composites
+Tantalum carbide (TaC) , Copper (Cu) matrix composites
+Chromia (Cr2O3) , Copper (Cu) matrix composites
+Yttria (Y2O3) , Copper (Cu) matrix composites
+Cerium oxide (CeO2) , Copper (Cu) matrix composites
+Lanthanum oxide (La2O3) , Copper (Cu) matrix composites
+Silica (SiO2) , Copper (Cu) matrix composites
+Aluminum nitride (AlN) , Copper (Cu) matrix composites
+Titanium nitride (TiN) , Copper (Cu) matrix composites
+Zirconium nitride (ZrN) , Copper (Cu) matrix composites
+Silicon (Si) - particles/fibers , Copper (Cu) matrix composites
+Graphite (C) / Carbon particles , Copper (Cu) matrix composites
+Carbon nanotubes (CNT) , Copper (Cu) matrix composites
+Graphene / Graphene nanoplatelets , Copper (Cu) matrix composites
+Carbon fibers (CF) , Copper (Cu) matrix composites
+Boron fibers (BF) , Copper (Cu) matrix composites
+Al2O3 whiskers , Copper (Cu) matrix composites
+SiC whiskers , Copper (Cu) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Copper (Cu) matrix composites
+Zirconia toughened alumina (ZTA) , Copper (Cu) matrix composites
+Strontium aluminate (SrAl2O4) , Copper (Cu) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Copper (Cu) matrix composites
+Calcia (CaO) , Copper (Cu) matrix composites
+Calcium silicate (CaSiO3) , Copper (Cu) matrix composites
+Mullite (3Al2O3路2SiO2) , Copper (Cu) matrix composites
+Aluminum titanate (Al2TiO5) , Copper (Cu) matrix composites
+BN nanotubes , Copper (Cu) matrix composites
+Boron nitride fibers , Copper (Cu) matrix composites
+Metallic glass particles (Mg/Cu based) , Copper (Cu) matrix composites
+Intermetallic particles (Ni3Al) , Copper (Cu) matrix composites
+Fiber glass (E-glass) , Copper (Cu) matrix composites
+Basalt fibers , Copper (Cu) matrix composites
+Quartz (伪-SiO2) particles , Copper (Cu) matrix composites
+ZrB2 (Zirconium diboride) , Copper (Cu) matrix composites
+AlB2 (Aluminum boride) , Copper (Cu) matrix composites
+Silicon carbide (SiC) , Iron / Steel (Fe) matrix composites
+Alumina (Al2O3) , Iron / Steel (Fe) matrix composites
+Titanium carbide (TiC) , Iron / Steel (Fe) matrix composites
+Titanium diboride (TiB2) , Iron / Steel (Fe) matrix composites
+Boron carbide (B4C) , Iron / Steel (Fe) matrix composites
+Zirconia (ZrO2) , Iron / Steel (Fe) matrix composites
+Silicon nitride (Si3N4) , Iron / Steel (Fe) matrix composites
+Boron nitride (BN) , Iron / Steel (Fe) matrix composites
+Magnesia (MgO) , Iron / Steel (Fe) matrix composites
+Hafnium carbide (HfC) , Iron / Steel (Fe) matrix composites
+Tungsten carbide (WC) , Iron / Steel (Fe) matrix composites
+Vanadium carbide (VC) , Iron / Steel (Fe) matrix composites
+Niobium carbide (NbC) , Iron / Steel (Fe) matrix composites
+Tantalum carbide (TaC) , Iron / Steel (Fe) matrix composites
+Chromia (Cr2O3) , Iron / Steel (Fe) matrix composites
+Yttria (Y2O3) , Iron / Steel (Fe) matrix composites
+Cerium oxide (CeO2) , Iron / Steel (Fe) matrix composites
+Lanthanum oxide (La2O3) , Iron / Steel (Fe) matrix composites
+Silica (SiO2) , Iron / Steel (Fe) matrix composites
+Aluminum nitride (AlN) , Iron / Steel (Fe) matrix composites
+Titanium nitride (TiN) , Iron / Steel (Fe) matrix composites
+Zirconium nitride (ZrN) , Iron / Steel (Fe) matrix composites
+Silicon (Si) - particles/fibers , Iron / Steel (Fe) matrix composites
+Graphite (C) / Carbon particles , Iron / Steel (Fe) matrix composites
+Carbon nanotubes (CNT) , Iron / Steel (Fe) matrix composites
+Graphene / Graphene nanoplatelets , Iron / Steel (Fe) matrix composites
+Carbon fibers (CF) , Iron / Steel (Fe) matrix composites
+Boron fibers (BF) , Iron / Steel (Fe) matrix composites
+Al2O3 whiskers , Iron / Steel (Fe) matrix composites
+SiC whiskers , Iron / Steel (Fe) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Iron / Steel (Fe) matrix composites
+Zirconia toughened alumina (ZTA) , Iron / Steel (Fe) matrix composites
+Strontium aluminate (SrAl2O4) , Iron / Steel (Fe) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Iron / Steel (Fe) matrix composites
+Calcia (CaO) , Iron / Steel (Fe) matrix composites
+Calcium silicate (CaSiO3) , Iron / Steel (Fe) matrix composites
+Mullite (3Al2O3路2SiO2) , Iron / Steel (Fe) matrix composites
+Aluminum titanate (Al2TiO5) , Iron / Steel (Fe) matrix composites
+BN nanotubes , Iron / Steel (Fe) matrix composites
+Boron nitride fibers , Iron / Steel (Fe) matrix composites
+Metallic glass particles (Mg/Cu based) , Iron / Steel (Fe) matrix composites
+Intermetallic particles (Ni3Al) , Iron / Steel (Fe) matrix composites
+Fiber glass (E-glass) , Iron / Steel (Fe) matrix composites
+Basalt fibers , Iron / Steel (Fe) matrix composites
+Quartz (伪-SiO2) particles , Iron / Steel (Fe) matrix composites
+ZrB2 (Zirconium diboride) , Iron / Steel (Fe) matrix composites
+AlB2 (Aluminum boride) , Iron / Steel (Fe) matrix composites
+Silicon carbide (SiC) , Nickel (Ni) matrix composites
+Alumina (Al2O3) , Nickel (Ni) matrix composites
+Titanium carbide (TiC) , Nickel (Ni) matrix composites
+Titanium diboride (TiB2) , Nickel (Ni) matrix composites
+Boron carbide (B4C) , Nickel (Ni) matrix composites
+Zirconia (ZrO2) , Nickel (Ni) matrix composites
+Silicon nitride (Si3N4) , Nickel (Ni) matrix composites
+Boron nitride (BN) , Nickel (Ni) matrix composites
+Magnesia (MgO) , Nickel (Ni) matrix composites
+Hafnium carbide (HfC) , Nickel (Ni) matrix composites
+Tungsten carbide (WC) , Nickel (Ni) matrix composites
+Vanadium carbide (VC) , Nickel (Ni) matrix composites
+Niobium carbide (NbC) , Nickel (Ni) matrix composites
+Tantalum carbide (TaC) , Nickel (Ni) matrix composites
+Chromia (Cr2O3) , Nickel (Ni) matrix composites
+Yttria (Y2O3) , Nickel (Ni) matrix composites
+Cerium oxide (CeO2) , Nickel (Ni) matrix composites
+Lanthanum oxide (La2O3) , Nickel (Ni) matrix composites
+Silica (SiO2) , Nickel (Ni) matrix composites
+Aluminum nitride (AlN) , Nickel (Ni) matrix composites
+Titanium nitride (TiN) , Nickel (Ni) matrix composites
+Zirconium nitride (ZrN) , Nickel (Ni) matrix composites
+Silicon (Si) - particles/fibers , Nickel (Ni) matrix composites
+Graphite (C) / Carbon particles , Nickel (Ni) matrix composites
+Carbon nanotubes (CNT) , Nickel (Ni) matrix composites
+Graphene / Graphene nanoplatelets , Nickel (Ni) matrix composites
+Carbon fibers (CF) , Nickel (Ni) matrix composites
+Boron fibers (BF) , Nickel (Ni) matrix composites
+Al2O3 whiskers , Nickel (Ni) matrix composites
+SiC whiskers , Nickel (Ni) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Nickel (Ni) matrix composites
+Zirconia toughened alumina (ZTA) , Nickel (Ni) matrix composites
+Strontium aluminate (SrAl2O4) , Nickel (Ni) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Nickel (Ni) matrix composites
+Calcia (CaO) , Nickel (Ni) matrix composites
+Calcium silicate (CaSiO3) , Nickel (Ni) matrix composites
+Mullite (3Al2O3路2SiO2) , Nickel (Ni) matrix composites
+Aluminum titanate (Al2TiO5) , Nickel (Ni) matrix composites
+BN nanotubes , Nickel (Ni) matrix composites
+Boron nitride fibers , Nickel (Ni) matrix composites
+Metallic glass particles (Mg/Cu based) , Nickel (Ni) matrix composites
+Intermetallic particles (Ni3Al) , Nickel (Ni) matrix composites
+Fiber glass (E-glass) , Nickel (Ni) matrix composites
+Basalt fibers , Nickel (Ni) matrix composites
+Quartz (伪-SiO2) particles , Nickel (Ni) matrix composites
+ZrB2 (Zirconium diboride) , Nickel (Ni) matrix composites
+AlB2 (Aluminum boride) , Nickel (Ni) matrix composites
+Silicon carbide (SiC) , Cobalt (Co) matrix composites
+Alumina (Al2O3) , Cobalt (Co) matrix composites
+Titanium carbide (TiC) , Cobalt (Co) matrix composites
+Titanium diboride (TiB2) , Cobalt (Co) matrix composites
+Boron carbide (B4C) , Cobalt (Co) matrix composites
+Zirconia (ZrO2) , Cobalt (Co) matrix composites
+Silicon nitride (Si3N4) , Cobalt (Co) matrix composites
+Boron nitride (BN) , Cobalt (Co) matrix composites
+Magnesia (MgO) , Cobalt (Co) matrix composites
+Hafnium carbide (HfC) , Cobalt (Co) matrix composites
+Tungsten carbide (WC) , Cobalt (Co) matrix composites
+Vanadium carbide (VC) , Cobalt (Co) matrix composites
+Niobium carbide (NbC) , Cobalt (Co) matrix composites
+Tantalum carbide (TaC) , Cobalt (Co) matrix composites
+Chromia (Cr2O3) , Cobalt (Co) matrix composites
+Yttria (Y2O3) , Cobalt (Co) matrix composites
+Cerium oxide (CeO2) , Cobalt (Co) matrix composites
+Lanthanum oxide (La2O3) , Cobalt (Co) matrix composites
+Silica (SiO2) , Cobalt (Co) matrix composites
+Aluminum nitride (AlN) , Cobalt (Co) matrix composites
+Titanium nitride (TiN) , Cobalt (Co) matrix composites
+Zirconium nitride (ZrN) , Cobalt (Co) matrix composites
+Silicon (Si) - particles/fibers , Cobalt (Co) matrix composites
+Graphite (C) / Carbon particles , Cobalt (Co) matrix composites
+Carbon nanotubes (CNT) , Cobalt (Co) matrix composites
+Graphene / Graphene nanoplatelets , Cobalt (Co) matrix composites
+Carbon fibers (CF) , Cobalt (Co) matrix composites
+Boron fibers (BF) , Cobalt (Co) matrix composites
+Al2O3 whiskers , Cobalt (Co) matrix composites
+SiC whiskers , Cobalt (Co) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Cobalt (Co) matrix composites
+Zirconia toughened alumina (ZTA) , Cobalt (Co) matrix composites
+Strontium aluminate (SrAl2O4) , Cobalt (Co) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Cobalt (Co) matrix composites
+Calcia (CaO) , Cobalt (Co) matrix composites
+Calcium silicate (CaSiO3) , Cobalt (Co) matrix composites
+Mullite (3Al2O3路2SiO2) , Cobalt (Co) matrix composites
+Aluminum titanate (Al2TiO5) , Cobalt (Co) matrix composites
+BN nanotubes , Cobalt (Co) matrix composites
+Boron nitride fibers , Cobalt (Co) matrix composites
+Metallic glass particles (Mg/Cu based) , Cobalt (Co) matrix composites
+Intermetallic particles (Ni3Al) , Cobalt (Co) matrix composites
+Fiber glass (E-glass) , Cobalt (Co) matrix composites
+Basalt fibers , Cobalt (Co) matrix composites
+Quartz (伪-SiO2) particles , Cobalt (Co) matrix composites
+ZrB2 (Zirconium diboride) , Cobalt (Co) matrix composites
+AlB2 (Aluminum boride) , Cobalt (Co) matrix composites
+Silicon carbide (SiC) , Zirconium (Zr) matrix composites
+Alumina (Al2O3) , Zirconium (Zr) matrix composites
+Titanium carbide (TiC) , Zirconium (Zr) matrix composites
+Titanium diboride (TiB2) , Zirconium (Zr) matrix composites
+Boron carbide (B4C) , Zirconium (Zr) matrix composites
+Zirconia (ZrO2) , Zirconium (Zr) matrix composites
+Silicon nitride (Si3N4) , Zirconium (Zr) matrix composites
+Boron nitride (BN) , Zirconium (Zr) matrix composites
+Magnesia (MgO) , Zirconium (Zr) matrix composites
+Hafnium carbide (HfC) , Zirconium (Zr) matrix composites
+Tungsten carbide (WC) , Zirconium (Zr) matrix composites
+Vanadium carbide (VC) , Zirconium (Zr) matrix composites
+Niobium carbide (NbC) , Zirconium (Zr) matrix composites
+Tantalum carbide (TaC) , Zirconium (Zr) matrix composites
+Chromia (Cr2O3) , Zirconium (Zr) matrix composites
+Yttria (Y2O3) , Zirconium (Zr) matrix composites
+Cerium oxide (CeO2) , Zirconium (Zr) matrix composites
+Lanthanum oxide (La2O3) , Zirconium (Zr) matrix composites
+Silica (SiO2) , Zirconium (Zr) matrix composites
+Aluminum nitride (AlN) , Zirconium (Zr) matrix composites
+Titanium nitride (TiN) , Zirconium (Zr) matrix composites
+Zirconium nitride (ZrN) , Zirconium (Zr) matrix composites
+Silicon (Si) - particles/fibers , Zirconium (Zr) matrix composites
+Graphite (C) / Carbon particles , Zirconium (Zr) matrix composites
+Carbon nanotubes (CNT) , Zirconium (Zr) matrix composites
+Graphene / Graphene nanoplatelets , Zirconium (Zr) matrix composites
+Carbon fibers (CF) , Zirconium (Zr) matrix composites
+Boron fibers (BF) , Zirconium (Zr) matrix composites
+Al2O3 whiskers , Zirconium (Zr) matrix composites
+SiC whiskers , Zirconium (Zr) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Zirconium (Zr) matrix composites
+Zirconia toughened alumina (ZTA) , Zirconium (Zr) matrix composites
+Strontium aluminate (SrAl2O4) , Zirconium (Zr) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Zirconium (Zr) matrix composites
+Calcia (CaO) , Zirconium (Zr) matrix composites
+Calcium silicate (CaSiO3) , Zirconium (Zr) matrix composites
+Mullite (3Al2O3路2SiO2) , Zirconium (Zr) matrix composites
+Aluminum titanate (Al2TiO5) , Zirconium (Zr) matrix composites
+BN nanotubes , Zirconium (Zr) matrix composites
+Boron nitride fibers , Zirconium (Zr) matrix composites
+Metallic glass particles (Mg/Cu based) , Zirconium (Zr) matrix composites
+Intermetallic particles (Ni3Al) , Zirconium (Zr) matrix composites
+Fiber glass (E-glass) , Zirconium (Zr) matrix composites
+Basalt fibers , Zirconium (Zr) matrix composites
+Quartz (伪-SiO2) particles , Zirconium (Zr) matrix composites
+ZrB2 (Zirconium diboride) , Zirconium (Zr) matrix composites
+AlB2 (Aluminum boride) , Zirconium (Zr) matrix composites
+Silicon carbide (SiC) , Molybdenum (Mo) matrix composites
+Alumina (Al2O3) , Molybdenum (Mo) matrix composites
+Titanium carbide (TiC) , Molybdenum (Mo) matrix composites
+Titanium diboride (TiB2) , Molybdenum (Mo) matrix composites
+Boron carbide (B4C) , Molybdenum (Mo) matrix composites
+Zirconia (ZrO2) , Molybdenum (Mo) matrix composites
+Silicon nitride (Si3N4) , Molybdenum (Mo) matrix composites
+Boron nitride (BN) , Molybdenum (Mo) matrix composites
+Magnesia (MgO) , Molybdenum (Mo) matrix composites
+Hafnium carbide (HfC) , Molybdenum (Mo) matrix composites
+Tungsten carbide (WC) , Molybdenum (Mo) matrix composites
+Vanadium carbide (VC) , Molybdenum (Mo) matrix composites
+Niobium carbide (NbC) , Molybdenum (Mo) matrix composites
+Tantalum carbide (TaC) , Molybdenum (Mo) matrix composites
+Chromia (Cr2O3) , Molybdenum (Mo) matrix composites
+Yttria (Y2O3) , Molybdenum (Mo) matrix composites
+Cerium oxide (CeO2) , Molybdenum (Mo) matrix composites
+Lanthanum oxide (La2O3) , Molybdenum (Mo) matrix composites
+Silica (SiO2) , Molybdenum (Mo) matrix composites
+Aluminum nitride (AlN) , Molybdenum (Mo) matrix composites
+Titanium nitride (TiN) , Molybdenum (Mo) matrix composites
+Zirconium nitride (ZrN) , Molybdenum (Mo) matrix composites
+Silicon (Si) - particles/fibers , Molybdenum (Mo) matrix composites
+Graphite (C) / Carbon particles , Molybdenum (Mo) matrix composites
+Carbon nanotubes (CNT) , Molybdenum (Mo) matrix composites
+Graphene / Graphene nanoplatelets , Molybdenum (Mo) matrix composites
+Carbon fibers (CF) , Molybdenum (Mo) matrix composites
+Boron fibers (BF) , Molybdenum (Mo) matrix composites
+Al2O3 whiskers , Molybdenum (Mo) matrix composites
+SiC whiskers , Molybdenum (Mo) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Molybdenum (Mo) matrix composites
+Zirconia toughened alumina (ZTA) , Molybdenum (Mo) matrix composites
+Strontium aluminate (SrAl2O4) , Molybdenum (Mo) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Molybdenum (Mo) matrix composites
+Calcia (CaO) , Molybdenum (Mo) matrix composites
+Calcium silicate (CaSiO3) , Molybdenum (Mo) matrix composites
+Mullite (3Al2O3路2SiO2) , Molybdenum (Mo) matrix composites
+Aluminum titanate (Al2TiO5) , Molybdenum (Mo) matrix composites
+BN nanotubes , Molybdenum (Mo) matrix composites
+Boron nitride fibers , Molybdenum (Mo) matrix composites
+Metallic glass particles (Mg/Cu based) , Molybdenum (Mo) matrix composites
+Intermetallic particles (Ni3Al) , Molybdenum (Mo) matrix composites
+Fiber glass (E-glass) , Molybdenum (Mo) matrix composites
+Basalt fibers , Molybdenum (Mo) matrix composites
+Quartz (伪-SiO2) particles , Molybdenum (Mo) matrix composites
+ZrB2 (Zirconium diboride) , Molybdenum (Mo) matrix composites
+AlB2 (Aluminum boride) , Molybdenum (Mo) matrix composites
+Silicon carbide (SiC) , Tungsten (W) matrix composites
+Alumina (Al2O3) , Tungsten (W) matrix composites
+Titanium carbide (TiC) , Tungsten (W) matrix composites
+Titanium diboride (TiB2) , Tungsten (W) matrix composites
+Boron carbide (B4C) , Tungsten (W) matrix composites
+Zirconia (ZrO2) , Tungsten (W) matrix composites
+Silicon nitride (Si3N4) , Tungsten (W) matrix composites
+Boron nitride (BN) , Tungsten (W) matrix composites
+Magnesia (MgO) , Tungsten (W) matrix composites
+Hafnium carbide (HfC) , Tungsten (W) matrix composites
+Tungsten carbide (WC) , Tungsten (W) matrix composites
+Vanadium carbide (VC) , Tungsten (W) matrix composites
+Niobium carbide (NbC) , Tungsten (W) matrix composites
+Tantalum carbide (TaC) , Tungsten (W) matrix composites
+Chromia (Cr2O3) , Tungsten (W) matrix composites
+Yttria (Y2O3) , Tungsten (W) matrix composites
+Cerium oxide (CeO2) , Tungsten (W) matrix composites
+Lanthanum oxide (La2O3) , Tungsten (W) matrix composites
+Silica (SiO2) , Tungsten (W) matrix composites
+Aluminum nitride (AlN) , Tungsten (W) matrix composites
+Titanium nitride (TiN) , Tungsten (W) matrix composites
+Zirconium nitride (ZrN) , Tungsten (W) matrix composites
+Silicon (Si) - particles/fibers , Tungsten (W) matrix composites
+Graphite (C) / Carbon particles , Tungsten (W) matrix composites
+Carbon nanotubes (CNT) , Tungsten (W) matrix composites
+Graphene / Graphene nanoplatelets , Tungsten (W) matrix composites
+Carbon fibers (CF) , Tungsten (W) matrix composites
+Boron fibers (BF) , Tungsten (W) matrix composites
+Al2O3 whiskers , Tungsten (W) matrix composites
+SiC whiskers , Tungsten (W) matrix composites
+Sapphire fibers (single-crystal Al2O3) , Tungsten (W) matrix composites
+Zirconia toughened alumina (ZTA) , Tungsten (W) matrix composites
+Strontium aluminate (SrAl2O4) , Tungsten (W) matrix composites
+Magnesium aluminate spinel (MgAl2O4) , Tungsten (W) matrix composites
+Calcia (CaO) , Tungsten (W) matrix composites
+Calcium silicate (CaSiO3) , Tungsten (W) matrix composites
+Mullite (3Al2O3 2SiO2) , Tungsten (W) matrix composites
+Aluminum titanate (Al2TiO5) , Tungsten (W) matrix composites
+BN nanotubes , Tungsten (W) matrix composites
+Boron nitride fibers , Tungsten (W) matrix composites
+Metallic glass particles (Mg/Cu based) , Tungsten (W) matrix composites
+Intermetallic particles (Ni3Al) , Tungsten (W) matrix composites
+Fiber glass (E-glass) , Tungsten (W) matrix composites
+Basalt fibers , Tungsten (W) matrix composites
+Quartz (SiO2) particles , Tungsten (W) matrix composites
+ZrB2 (Zirconium diboride) , Tungsten (W) matrix composites
+AlB2 (Aluminum boride) , Tungsten (W) matrix composites
