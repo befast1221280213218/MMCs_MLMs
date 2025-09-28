@@ -1,0 +1,338 @@
+#!/usr/bin/env python3
+"""
+download_abstracts_from_dois.py
+
+Read DOIs from a file (one DOI per line), fetch abstracts (CrossRef preferred),
+fallback to OpenAlex and optionally Elsevier, and write results to JSONL and CSV summary.
+
+Configurable parameters at the top.
+
+Dependencies:
+    pip install requests tqdm tenacity
+
+Usage:
+    python download_abstracts_from_dois.py
+
+Outputs:
+    - <doi_file_basename>_abstracts.jsonl   (one JSON per line: doi, abstract, title, source)
+    - <doi_file_basename>_summary.csv      (per-DOI summary: doi, abstract_present, source, note)
+"""
+
+import time
+import json
+import csv
+import sys
+from pathlib import Path
+from datetime import datetime
+import requests
+from tenacity import retry, wait_exponential, stop_after_attempt
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Lock
+from tqdm import tqdm
+import html
+import re
+
+# ----------------- CONFIG -----------------
+DOI_FILE = Path(r"K:\Abstract\DOI.txt")  # input: one DOI per line
+OUT_JSONL = DOI_FILE.with_name(DOI_FILE.stem + "_abstracts.jsonl")
+OUT_SUMMARY = DOI_FILE.with_name(DOI_FILE.stem + "_summary.csv")
+
+EMAIL = "your_email@example.com"  # put a real contact email here
+USER_AGENT = f"doi-abstract-fetcher/1.0 (mailto:{EMAIL})"
+
+# concurrency & rate
+THREADS = 8                 # number of worker threads (tune down if you get 429)
+MIN_INTERVAL = 0.25         # seconds between requests per-thread (simple politeness)
+ROWS_PER_REQUEST = 1        # for DOI-by-DOI requests, keep this 1 (we use works/{doi})
+MAX_DOIS_TO_RUN = None      # set to an int to limit for testing; None => all
+
+# fallback options
+USE_OPENALEX_FALLBACK = True
+USE_ELSEVIER_FALLBACK = False
+ELSEVIER_API_KEY = None     # set to your Elsevier API key if available
+
+# retries/timeouts
+REQUEST_TIMEOUT = 30
+TENACITY_MAX_ATTEMPTS = 5
+
+# cleaning
+REMOVE_HTML_TAGS = True
+# -------------------------------------------
+
+# endpoints
+CROSSREF_WORKS = "https://api.crossref.org/works/"   # append {doi}
+OPENALEX_WORK = "https://api.openalex.org/works/doi:"  # append {doi} (no URL encoding)
+ELSEVIER_ARTICLE_BY_DOI = "https://api.elsevier.com/content/article/doi/"  # append {doi}
+
+# thread-safe file writing
+write_lock = Lock()
+
+# simple per-thread rate limiter (not perfect but helps)
+class RateLimiter:
+    def __init__(self, min_interval: float):
+        self.min_interval = min_interval
+        self._last = 0.0
+
+    def wait(self):
+        now = time.time()
+        elapsed = now - self._last
+        if elapsed < self.min_interval:
+            time.sleep(self.min_interval - elapsed)
+        self._last = time.time()
+
+def clean_text(raw: str) -> str:
+    if raw is None:
+        return None
+    s = html.unescape(raw)
+    if REMOVE_HTML_TAGS:
+        s = re.sub(r"<[^>]+>", " ", s)
+    # normalize whitespace
+    s = re.sub(r"\s+", " ", s).strip()
+    return s or None
+
+@retry(wait=wait_exponential(multiplier=1, min=1, max=60), stop=stop_after_attempt(TENACITY_MAX_ATTEMPTS))
+def http_get(session: requests.Session, url: str, params=None, headers=None, timeout=REQUEST_TIMEOUT):
+    resp = session.get(url, params=params, headers=headers or {}, timeout=timeout)
+    # For 5xx, let tenacity retry (raise)
+    if resp.status_code >= 500:
+        resp.raise_for_status()
+    return resp
+
+def fetch_crossref_by_doi(session: requests.Session, doi: str, rate_limiter: RateLimiter):
+    # Crossref works/{doi}
+    url = CROSSREF_WORKS + requests.utils.quote(doi, safe='')
+    headers = {"User-Agent": USER_AGENT}
+    rate_limiter.wait()
+    try:
+        resp = http_get(session, url, headers=headers)
+    except Exception as e:
+        return None, f"crossref_error:{e}"
+    if resp.status_code == 200:
+        try:
+            j = resp.json()
+        except Exception as e:
+            return None, f"crossref_invalid_json:{e}"
+        msg = j.get("message", {})
+        raw_abs = msg.get("abstract")
+        abs_clean = clean_text(raw_abs)
+        title_list = msg.get("title") or []
+        title = " ".join(title_list) if isinstance(title_list, list) else (title_list or "")
+        return {"doi": doi, "abstract": abs_clean, "title": title, "source": "crossref"}, None
+    elif resp.status_code == 404:
+        return None, "crossref_404"
+    elif resp.status_code == 429:
+        # Should be handled by tenacity/backoff, but if reaches here return a signal
+        retry_after = resp.headers.get("Retry-After")
+        return None, f"crossref_429_retry_after:{retry_after}"
+    else:
+        return None, f"crossref_http_{resp.status_code}"
+
+def fetch_openalex_by_doi(session: requests.Session, doi: str, rate_limiter: RateLimiter):
+    # OpenAlex supports /works/doi:DOI but DOI should not be URL encoded there
+    url = OPENALEX_WORK + doi
+    headers = {"User-Agent": USER_AGENT}
+    rate_limiter.wait()
+    try:
+        resp = http_get(session, url, headers=headers)
+    except Exception as e:
+        return None, f"openalex_error:{e}"
+    if resp.status_code == 200:
+        try:
+            j = resp.json()
+        except Exception as e:
+            return None, f"openalex_invalid_json:{e}"
+        abs_text = j.get("abstract_inverted_index")  # OpenAlex stores as inverted index sometimes
+        if isinstance(abs_text, dict):
+            # reconstruct abstract from inverted index
+            try:
+                # inverted index: {token: [positions]}
+                tokens = []
+                maxpos = 0
+                for tok, poss in abs_text.items():
+                    for p in poss:
+                        if p > maxpos: maxpos = p
+                tokens = [""] * (maxpos + 1)
+                for tok, poss in abs_text.items():
+                    for p in poss:
+                        tokens[p] = tok
+                abstract_rebuilt = " ".join(tokens).strip()
+            except Exception:
+                abstract_rebuilt = None
+        else:
+            abstract_rebuilt = j.get("abstract") or None
+        title = j.get("title")
+        abstract_clean = clean_text(abstract_rebuilt)
+        return {"doi": doi, "abstract": abstract_clean, "title": title, "source": "openalex"}, None
+    elif resp.status_code == 404:
+        return None, "openalex_404"
+    else:
+        return None, f"openalex_http_{resp.status_code}"
+
+def fetch_elsevier_by_doi(session: requests.Session, doi: str, rate_limiter: RateLimiter):
+    if not ELSEVIER_API_KEY:
+        return None, "elsevier_no_api_key"
+    url = ELSEVIER_ARTICLE_BY_DOI + requests.utils.quote(doi, safe='')
+    headers = {"User-Agent": USER_AGENT, "X-ELS-APIKey": ELSEVIER_API_KEY, "Accept": "application/json"}
+    rate_limiter.wait()
+    try:
+        resp = http_get(session, url, headers=headers)
+    except Exception as e:
+        return None, f"elsevier_error:{e}"
+    if resp.status_code == 200:
+        try:
+            j = resp.json()
+        except Exception as e:
+            return None, f"elsevier_invalid_json:{e}"
+        # Elsevier JSON structure: 'full-text-retrieval-response' -> coredata -> dc:description?
+        # try common places
+        abstract = None
+        title = None
+        try:
+            core = j.get("full-text-retrieval-response") or j
+            # try coredata
+            coredata = core.get("coredata") or {}
+            title = coredata.get("dc:title") or coredata.get("title")
+        except Exception:
+            pass
+        # Elsevier often returns 'abstracts' field
+        try:
+            abst_list = j.get("abstracts") or []
+            if isinstance(abst_list, list) and abst_list:
+                abstract = " ".join([a.get("text") or "" for a in abst_list]).strip() or None
+        except Exception:
+            pass
+        abstract_clean = clean_text(abstract)
+        return {"doi": doi, "abstract": abstract_clean, "title": title, "source": "elsevier"}, None
+    elif resp.status_code == 404:
+        return None, "elsevier_404"
+    else:
+        return None, f"elsevier_http_{resp.status_code}"
+
+def process_one_doi(doi: str, session: requests.Session, rate_limiter: RateLimiter):
+    doi = doi.strip()
+    if not doi:
+        return None, "empty"
+    # try CrossRef first
+    result, err = fetch_crossref_by_doi(session, doi, rate_limiter)
+    if result and result.get("abstract"):
+        return result, None
+    # if CrossRef returned result but no abstract, try OpenAlex
+    if USE_OPENALEX_FALLBACK:
+        res2, err2 = fetch_openalex_by_doi(session, doi, rate_limiter)
+        if res2 and res2.get("abstract"):
+            return res2, None
+    # optional Elsevier
+    if USE_ELSEVIER_FALLBACK and ELSEVIER_API_KEY:
+        res3, err3 = fetch_elsevier_by_doi(session, doi, rate_limiter)
+        if res3 and res3.get("abstract"):
+            return res3, None
+    # if we got CrossRef result but no abstract, still return empty abstract but keep title if any
+    if result:
+        # may have title but no abstract
+        return {"doi": doi, "abstract": None, "title": result.get("title"), "source": result.get("source")}, "no_abstract"
+    # otherwise return the last error code
+    return None, err or "no_result"
+
+def load_seen_dois(jsonl_path: Path):
+    seen = set()
+    if not jsonl_path.exists():
+        return seen
+    # read DOI column from existing JSONL to resume
+    with jsonl_path.open("r", encoding="utf8") as f:
+        for line in f:
+            try:
+                j = json.loads(line)
+                d = (j.get("doi") or "").strip().lower()
+                if d:
+                    seen.add(d)
+            except Exception:
+                continue
+    return seen
+
+def main():
+    if not DOI_FILE.exists():
+        print("DOI file not found:", DOI_FILE)
+        sys.exit(1)
+
+    dois_all = []
+    with DOI_FILE.open("r", encoding="utf8") as f:
+        for line in f:
+            d = line.strip()
+            if d:
+                if d.lower().startswith("doi:"):
+                    d = d[4:]
+                dois_all.append(d)
+    if MAX_DOIS_TO_RUN:
+        dois_all = dois_all[:MAX_DOIS_TO_RUN]
+
+    print(f"Total DOIs in file: {len(dois_all)}")
+    seen = load_seen_dois(OUT_JSONL)
+    print(f"Already have {len(seen)} DOIs in output (will skip).")
+
+    # prepare session factory per thread
+    sessions = [requests.Session() for _ in range(THREADS)]
+
+    rate_limiters = [RateLimiter(MIN_INTERVAL) for _ in range(THREADS)]
+
+    # open output files (append mode for resume)
+    jsonl_f = OUT_JSONL.open("a", encoding="utf8")
+    csv_f = OUT_SUMMARY.open("a", encoding="utf8", newline='', buffering=1)
+    csv_writer = csv.writer(csv_f)
+    # write header if file empty
+    if csv_f.tell() == 0:
+        csv_writer.writerow(["doi", "abstract_present", "source", "note", "retrieved_at_utc"])
+
+    # design task list excluding seen DOIs
+    tasks = [d for d in dois_all if d.strip().lower() not in seen]
+    print(f"DOIs to process: {len(tasks)}")
+
+    def worker_task(idx, doi):
+        # assign a session and limiter by thread idx modulo
+        sess = sessions[idx % len(sessions)]
+        limiter = rate_limiters[idx % len(rate_limiters)]
+        try:
+            res, err = process_one_doi(doi, sess, limiter)
+            return doi, res, err
+        except Exception as e:
+            return doi, None, f"exception:{e}"
+
+    # use ThreadPoolExecutor for IO-bound tasks
+    futures = []
+    with ThreadPoolExecutor(max_workers=THREADS) as ex:
+        for i, doi in enumerate(tasks):
+            futures.append(ex.submit(worker_task, i, doi))
+
+        pbar = tqdm(total=len(futures), desc="Fetching DOIs")
+        for fut in as_completed(futures):
+            doi, res, err = fut.result()
+            pbar.update(1)
+            # write result (thread-safe)
+            with write_lock:
+                timestamp = datetime.utcnow().isoformat() + "Z"
+                if res:
+                    # write JSONL
+                    out_obj = {
+                        "doi": res.get("doi"),
+                        "title": res.get("title"),
+                        "abstract": res.get("abstract"),
+                        "source": res.get("source"),
+                        "retrieved_at": timestamp
+                    }
+                    jsonl_f.write(json.dumps(out_obj, ensure_ascii=False) + "\n")
+                    # CSV summary
+                    csv_writer.writerow([res.get("doi"), "yes" if res.get("abstract") else "no", res.get("source"), "", timestamp])
+                else:
+                    # no result; write DOI with note
+                    csv_writer.writerow([doi, "no", "", err or "", timestamp])
+                # flush periodically (helps resume)
+                jsonl_f.flush()
+                csv_f.flush()
+        pbar.close()
+
+    jsonl_f.close()
+    csv_f.close()
+    print("Finished. Output JSONL:", OUT_JSONL)
+    print("Summary CSV:", OUT_SUMMARY)
+
+if __name__ == "__main__":
+    main()
